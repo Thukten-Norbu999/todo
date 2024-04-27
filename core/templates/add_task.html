@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+{% block title %} Add Todo {% endblock %}
+
+{% block content %}
+<center>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" id="Todo" name="Todo" placeholder="Todo Title">
+        <button id="addTodo" >Add Todo</button>
+        <div class="container-fluid" id="subtodo-container">
+            <input type="text" name="subtodo" placeholder="Todo">
+            <button id="addTask">Add Task</button>
+            <div class="container" id="task-container">
+                <input type="text" name="task" placeholder="Task">
+            </div>
+        </div>
+    </form>
+    <button type="submit">submit</button>
+</center>
+
+<script>
+    
+    function addTodo(event){
+        event.preventDefault()
+        const container = document.getElementById('subtodo-container');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = `Todo`;
+        input.placeholder = `Todo`;
+        const btn = document.createElement('button');
+        btn.id = "addTask";
+        btn.textContent = "Add Task"
+        btn.addEventListener('click', addTask)
+        container.appendChild(input);
+        container.appendChild(btn)
+
+    }
+    function addTask(event){
+        event.preventDefault()
+        const container = document.getElementById('task-container');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = `task`;
+        input.placeholder = `Task`;
+        container.appendChild(input);
+    }
+    document.getElementById('addTodo').addEventListener('click', addTodo)
+
+    document.getElementById('addTask').addEventListener('click', addTask)
+
+</script>
+
+
+<style>
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .container {
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
