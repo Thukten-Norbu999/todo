@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<h1>Welcome {{user.username}}</h1>
+<div class="container-fluid">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-control">
+            <input type="text" name="Todo" placeholder="Todo Title">
+        </div>
+        <div class="form-control">
+            <label for="date-finished">Date to be finished</label>
+            <input type="date" name="date_finished">
+        </div>
+        <div class="form-control">
+            <button class="btn btn-primary" type="submit" id="addTodo" >Add Todo</button>
+        </div>
+    </form>
+</div>
+
+<div class="container-fluid">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>is_Done</th>
+                <th>Created at</th>
+                <th>To be finished by</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for todo in todoList %}
+            <tr>
+                <td>{{ todo.task_name }}</td>
+                <td>{{ todo.done }}</td>
+                <td>{{todo.created_at}}</td>
+                <td>{{todo.date_toBe_finishedBy}}</td>
+                <td><a href="">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
+</div>
+
+{% endblock %}
